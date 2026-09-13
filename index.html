@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>叶罗丽·梦之卡</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:"Microsoft YaHei","PingFang SC",sans-serif; }
+  body {
+    min-height:100vh;
+    background:
+      radial-gradient(circle at 20% 20%,rgba(255,182,255,0.45),transparent 40%),
+      radial-gradient(circle at 80% 10%,rgba(173,216,255,0.35),transparent 45%),
+      radial-gradient(circle at 50% 90%,rgba(255,223,186,0.3),transparent 50%),
+      linear-gradient(160deg,#ffe7f5 0%,#dceaFF 45%,#f6e0ff 100%);
+    color:#5a3d7a; overflow-x:hidden; padding-bottom:40px;
+  }
+  body::before {
+    content:""; position:fixed; inset:0;
+    background-image:
+      radial-gradient(2px 2px at 10% 20%,#ffffff 80%,transparent),
+      radial-gradient(1.5px 1.5px at 30% 70%,#ffe9a8 70%,transparent),
+      radial-gradient(2px 2px at 60% 40%,#d4f0ff 80%,transparent),
+      radial-gradient(1.5px 1.5px at 80% 80%,#ffc7f6 70%,transparent),
+      radial-gradient(2px 2px at 90% 30%,#ffffff 80%,transparent);
+    background-size:200px 200px; pointer-events:none;
+    animation:twinkle 6s ease-in-out infinite alternate; z-index:0;
+  }
+  @keyframes twinkle { 0%{opacity:0.4} 100%{opacity:1} }
+  .app { position:relative; z-index:1; max-width:480px; margin:0 auto; padding:20px 18px; }
+
+
+
+
+
+
+  .fairy-banner {
+    margin-top:18px; border-radius:24px; overflow:hidden; position:relative; height:200px;
+    background:
+      linear-gradient(135deg,rgba(255,177,221,0.5),rgba(160,196,255,0.5)),
+      url("https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=900&q=60") center/cover;
+    border:2px solid rgba(255,255,255,0.8); box-shadow:0 10px 30px rgba(185,130,255,0.45);
+  }
+  .fairy-banner::before { content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(255,255,255,0.2),rgba(120,60,180,0.35)); }
+  .banner-text { position:absolute; left:16px; bottom:14px; color:#fff; text-shadow:0 2px 8px rgba(106,40,140,0.8); z-index:2; }
+  .banner-text .small { font-size:12px; letter-spacing:2px; opacity:0.9; }
+  .banner-text .big { font-size:22px; font-weight:bold; margin-top:4px; }
+  .magic-circle {
+    position:absolute; right:18px; top:18px; width:72px; height:72px; border-radius:50%;
+    border:2px dashed rgba(255,255,255,0.85); box-shadow:0 0 18px rgba(255,255,255,0.8);
+    z-index:2; animation:rotate 14s linear infinite;
+  }
+  .magic-circle::after { content:""; position:absolute; inset:8px; border-radius:50%; border:1px solid rgba(255,255,255,0.6); }
+  @keyframes rotate { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+  .section-title { margin:24px 6px 14px; font-size:17px; font-weight:bold; color:#7b3fa1; display:flex; align-items:center; gap:8px; }
+  .section-title::before { content:"\2726"; color:#ff7de0; }
+  .section-title::after { content:""; flex:1; height:1px; background:linear-gradient(90deg,#ffb3ec,transparent); }
+  .destiny-card {
+    background:linear-gradient(135deg,rgba(255,255,255,0.75),rgba(230,210,255,0.55));
+    border:1px solid rgba(255,182,230,0.7); border-radius:22px; padding:28px 24px 22px;
+    box-shadow:0 8px 24px rgba(185,130,255,0.35); position:relative; overflow:hidden; text-align:center;
+  }
+  .destiny-card::before { content:""; position:absolute; top:-40px; right:-40px; width:140px; height:140px; background:radial-gradient(circle,rgba(255,210,240,0.7),transparent 70%); border-radius:50%; }
+  .destiny-title { font-size:20px; font-weight:bold; color:#9c27b0; margin-bottom:22px; position:relative; z-index:1; }
+  .fallback-msg { font-size:14px; color:#b39ddb; margin-top:8px; position:relative; z-index:1; font-style:italic; }
+  .place-line { font-size:16px; color:#8754aa; margin-bottom:12px; position:relative; z-index:1; }
+  .identity-line { font-size:18px; color:#703494; font-weight:600; margin-bottom:24px; position:relative; z-index:1; }
+  .quote-line { font-size:17px; color:#5c307c; line-height:1.7; position:relative; z-index:1; }
+  .draw-buttons { margin-top:22px; display:flex; flex-direction:column; gap:12px; position:relative; z-index:1; }
+  .draw-btn { width:100%; padding:14px 16px; border:none; border-radius:16px; cursor:pointer; transition:transform 0.2s,box-shadow 0.2s; text-align:center; }
+  .draw-btn:hover { transform:translateY(-2px); }
+  .draw-btn:active { transform:scale(0.98); }
+  .draw-btn:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+  .draw-btn.single { background:linear-gradient(135deg,#ff9de6,#c78fff); box-shadow:0 6px 18px rgba(199,143,255,0.5); }
+  .draw-btn.ten { background:linear-gradient(135deg,#82c8ff,#b388ff); box-shadow:0 6px 18px rgba(130,200,255,0.5); }
+  .btn-title { font-size:16px; font-weight:bold; color:#fff; letter-spacing:2px; text-shadow:0 2px 6px rgba(120,60,180,0.6); }
+  .btn-desc { font-size:12px; color:rgba(255,255,255,0.9); margin-top:4px; text-shadow:0 1px 4px rgba(120,60,180,0.5); }
+  .card-modal {
+    display:none; position:fixed; inset:0; z-index:999;
+    background:linear-gradient(135deg,rgba(80,30,120,0.6),rgba(120,60,160,0.5));
+    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+    align-items:center; justify-content:center; padding:20px;
+  }
+  .card-modal.active { display:flex; animation:modalFadeIn 0.3s ease; }
+  @keyframes modalFadeIn { from{opacity:0} to{opacity:1} }
+  .card-stage { position:relative; z-index:2; }
+  .single-card-wrap { width:240px; perspective:1200px; }
+  .single-card-wrap.normal { aspect-ratio:53/125; }
+  .single-card-wrap.special { aspect-ratio:65/90; }
+  .card-inner {
+    width:100%; height:100%; position:relative;
+    transform-style:preserve-3d;
+    transition:transform 0.8s cubic-bezier(0.4,0,0.2,1);
+    transform-origin:center center;
+    border-radius:14px; box-shadow:0 12px 40px rgba(60,20,100,0.5);
+  }
+  .card-inner.flipped { transform:rotateY(-180deg); }
+  .card-face {
+    position:absolute; inset:0; backface-visibility:hidden;
+    border-radius:14px; overflow:hidden; border:2px solid rgba(255,255,255,0.8);
+    background:linear-gradient(135deg,#e8d0f0,#d4b8e8);
+  }
+  .card-front { transform:rotateY(180deg); }
+  .card-face img { width:100%; height:100%; object-fit:cover; display:block; }
+  .modal-tip { position:absolute; bottom:40px; left:0; right:0; text-align:center; color:rgba(255,255,255,0.92); font-size:14px; z-index:2; }
+  .result-panel {
+    margin-top:20px;
+    background:linear-gradient(135deg,rgba(255,255,255,0.75),rgba(230,210,255,0.55));
+    border:1px solid rgba(255,182,230,0.7); border-radius:18px; padding:16px 14px;
+    box-shadow:0 6px 18px rgba(185,130,255,0.3);
+  }
+  .result-title { font-size:15px; font-weight:bold; color:#9c27b0; margin-bottom:12px; text-align:center; }
+  .result-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:10px 4px; text-align:center; margin-bottom:12px; }
+  .result-stat .num { font-size:18px; font-weight:bold; color:#9c27b0; }
+  .result-stat .label { font-size:11px; color:#7b5aa1; margin-top:2px; }
+  .result-list { font-size:12px; color:#6b4a85; line-height:1.6; max-height:120px; overflow-y:auto; padding-right:4px; }
+  .result-list .rarity-limit { color:#e91e63; font-weight:bold; }
+  .result-list .rarity-special { color:#9c27b0; font-weight:bold; }
+  .result-list .rarity-hide { color:#673ab7; }
+  .result-list .rarity-high { color:#3f51b5; }
+  .result-list .rarity-mid { color:#009688; }
+  .result-list .rarity-low { color:#607d8b; }
+  .count-panel {
+    margin-top:20px;
+    background:linear-gradient(135deg,rgba(255,255,255,0.75),rgba(230,210,255,0.55));
+    border:1px solid rgba(255,182,230,0.7); border-radius:18px; padding:16px 8px;
+    display:grid; grid-template-columns:repeat(3,1fr); gap:12px 4px; text-align:center;
+    box-shadow:0 6px 18px rgba(185,130,255,0.3);
+  }
+  .count-item .num { font-size:22px; font-weight:bold; color:#9c27b0; }
+  .count-item .label { font-size:12px; color:#7b5aa1; margin-top:4px; }
+  @media(max-width:380px) { .single-card-wrap{width:220px} }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="fairy-banner">
+    <div class="magic-circle"></div>
+    <div class="banner-text">
+      <div class="small">FAIRY DREAM CARD</div>
+      <div class="big">与仙子缔结契约</div>
+    </div>
+  </div>
+  <div class="section-title">命运之书</div>
+  <div class="destiny-card">
+    <div class="destiny-title">✨ 今日命运提示 ✨</div>
+    <div id="fallbackMsg" class="fallback-msg" style="display:none;">命运的卡牌已被洗好，等待召唤。</div>
+    <div class="place-line" id="placeText"></div>
+    <div class="identity-line" id="idText"></div>
+    <div class="quote-line" id="msgText"></div>
+    <div class="draw-buttons">
+      <button class="draw-btn single" id="drawSingle">
+        <div class="btn-title">召唤魔法</div>
+        <div class="btn-desc">召唤一位异世界的访客，为你解读命运</div>
+      </button>
+      <button class="draw-btn ten" id="drawTen">
+        <div class="btn-title">前往仙境</div>
+        <div class="btn-desc">邀约十位引路人，陪伴你前往未知的旅途</div>
+      </button>
+    </div>
+  </div>
+  <div class="result-panel" id="resultPanel" style="display:none;">
+    <div class="result-title">本次抽取结果</div>
+    <div class="result-stats" id="resultStats"></div>
+    <div class="result-list" id="resultList"></div>
+  </div>
+  <div class="section-title">当日累计</div>
+  <div class="count-panel">
+    <div class="count-item"><div class="num" id="countLimit">0</div><div class="label">限定</div></div>
+    <div class="count-item"><div class="num" id="countSpecial">0</div><div class="label">特典</div></div>
+    <div class="count-item"><div class="num" id="countHide">0</div><div class="label">隐藏卡</div></div>
+    <div class="count-item"><div class="num" id="countHigh">0</div><div class="label">高卡位</div></div>
+    <div class="count-item"><div class="num" id="countMid">0</div><div class="label">中卡位</div></div>
+    <div class="count-item"><div class="num" id="countLow">0</div><div class="label">低卡位</div></div>
+  </div>
+</div>
+
+<div class="card-modal" id="cardModal">
+  <div class="card-stage" id="cardStage"></div>
+  <div class="modal-tip" id="modalTip">点击屏幕翻开卡牌</div>
+</div>
+
+<script>var CARDS = {};
+var GROUPS = [];
+var BACK_SPECIAL = "";
+var BACK_NORMAL = "";
+var FALLBACK_IMG = "";
+var DRAW_COUNT_KEY = "yeloli_draw_count";
+var DAILY_FATE_KEY = "yeloli_daily_fate";
+var cardModal, cardStage, modalTip, currentDrawnCards = [], seqIndex = 0, seqPhase = "idle";
+
+// ===== 配置区 START（改这里就行） =====
+var CONFIG = {
+  "cards": {
+    "低卡位": [
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/LSTA/690X1851/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD32.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/9UMm/691X1851/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD31.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/0z59/690X1851/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD30.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/8Tf6/691X1851/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD29.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/pYFS/690X1851/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD28.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/ZNOX/691X1851/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD27.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/6DtD/691X1851/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD24.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/nkKJ/690X1851/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD23.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/oyTN/690X1851/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD25.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/xN8u/691X1851/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD26.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/9KU4/691X1851/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD22.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/ovgZ/690X1851/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD21.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/PMr4/1880X4372/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD17.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/WALt/622X1472/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD20.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/0ebk/1904X4376/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD15.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/xN1m/622X1472/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD19.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/MbWN/622X1472/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD18.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/i8VY/1908X4388/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD14.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/s2kf/622X1472/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD16.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/gwH0/622X1472/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD13.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/SoAT/691X1851/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD12.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/02t4/690X1851/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD11.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/R1yB/622X1472/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD10.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/9qbV/1896X4372/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD8.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/6YKe/691X1851/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD9.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/M02r/1892X4380/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD7.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/vGU9/1896X4392/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD5.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/KWYD/622X1472/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD6.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/QvkF/622X1472/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD4.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/YeXE/1892X4376/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD3.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/hT6G/622X1472/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD1.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/3Xum/622X1472/%E4%BD%8E%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E4%B8%AD2.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E4%BD%8E%E5%8D%A1%E4%BD%8D/half4dream14All.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E4%BD%8E%E5%8D%A1%E4%BD%8D/4dream14All.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E4%BD%8E%E5%8D%A1%E4%BD%8D/half9Star6%282%29.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E4%BD%8E%E5%8D%A1%E4%BD%8D/half2Star6half%281%29.png"
+    ],
+    "高卡位": [
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%B0%8F%E9%9A%90%E8%97%8F/4CUT12.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%B0%8F%E9%9A%90%E8%97%8F/5CUT12.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%B0%8F%E9%9A%90%E8%97%8F/4CUT13.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%B0%8F%E9%9A%90%E8%97%8F/5CUT13.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%B0%8F%E9%9A%90%E8%97%8F/4CUT1.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%B0%8F%E9%9A%90%E8%97%8F/5CUT15.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%B0%8F%E9%9A%90%E8%97%8F/CUT1.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%B0%8F%E9%9A%90%E8%97%8F/2CUT15.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%B0%8F%E9%9A%90%E8%97%8F/4CUT15.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%B0%8F%E9%9A%90%E8%97%8F/3CUT12.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%B0%8F%E9%9A%90%E8%97%8F/5CUT1.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%B0%8F%E9%9A%90%E8%97%8F/3CUT15.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%B0%8F%E9%9A%90%E8%97%8F/2CUT12.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%B0%8F%E9%9A%90%E8%97%8F/CUT12.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%B0%8F%E9%9A%90%E8%97%8F/CUT13.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%B0%8F%E9%9A%90%E8%97%8F/3CUT13.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%B0%8F%E9%9A%90%E8%97%8F/2CUT13.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%B0%8F%E9%9A%90%E8%97%8F/3CUT1.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%B0%8F%E9%9A%90%E8%97%8F/CUT15.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%B0%8F%E9%9A%90%E8%97%8F/2CUT1.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/NNup/647X1452/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B625.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/bB5C/675X1533/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B626.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/zLrk/816X1801/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B627.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/BbsU/857X1931/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B624.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/oTmo/945X2121/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B623.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/YbCg/1024X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B6%E7%AC%AC%E4%BA%8C%E6%89%B918.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/uw5Q/1024X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B6%E7%AC%AC%E4%BA%8C%E6%89%B919.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/xi4C/1024X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B6%E7%AC%AC%E4%BA%8C%E6%89%B920.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/ilw6/1024X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B6%E7%AC%AC%E4%BA%8C%E6%89%B921.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/2sgk/1024X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B6%E7%AC%AC%E4%BA%8C%E6%89%B922.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/77ol/1024X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B6%E7%AC%AC%E4%BA%8C%E6%89%B923.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/dppu/1029X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B634.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/ysou/1029X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B635.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/9Nrj/1039X2303/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B622.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/OkHH/1041X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B628.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/My4Q/1041X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B629.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/zN9E/1041X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B630.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/VjSu/1041X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B631.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/QTsq/1041X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B632.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/A9oI/1041X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B633.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/AI5V/1041X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B6%E7%AC%AC%E4%BA%8C%E6%89%B93.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/Ao3D/1041X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B6%E7%AC%AC%E4%BA%8C%E6%89%B96.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/OOXA/1041X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B6%E7%AC%AC%E4%BA%8C%E6%89%B97.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/83zl/1041X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B6%E7%AC%AC%E4%BA%8C%E6%89%B98.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/F7kH/1041X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B6%E7%AC%AC%E4%BA%8C%E6%89%B99.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/KRPM/1041X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B6%E7%AC%AC%E4%BA%8C%E6%89%B910.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/djUR/1041X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B6%E7%AC%AC%E4%BA%8C%E6%89%B911.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/FFSf/1041X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B6%E7%AC%AC%E4%BA%8C%E6%89%B912.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/EDUQ/1041X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B6%E7%AC%AC%E4%BA%8C%E6%89%B913.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/n6Db/1041X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B6%E7%AC%AC%E4%BA%8C%E6%89%B914.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/ti1x/1041X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B6%E7%AC%AC%E4%BA%8C%E6%89%B915.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/XFmD/1041X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B6%E7%AC%AC%E4%BA%8C%E6%89%B916.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/q5Zt/1041X2404/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B6%E7%AC%AC%E4%BA%8C%E6%89%B917.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/b8dN/1329X3120/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B6%E7%AC%AC%E4%BA%8C%E6%89%B92.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/OGRB/1344X3072/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B6%E7%AC%AC%E4%BA%8C%E6%89%B91.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/R5hz/1716X4096/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B6%E7%AC%AC%E4%BA%8C%E6%89%B94.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/LlEo/1780X4096/%E9%AB%98%E5%8D%A1%E4%BD%8D%E8%87%AA%E5%88%B6%E7%AC%AC%E4%BA%8C%E6%89%B95.png",
+    ],
+    "特典": [
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E7%89%B9%E5%85%B8/92.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E7%89%B9%E5%85%B8/96.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E7%89%B9%E5%85%B8/95.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E7%89%B9%E5%85%B8/94.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E7%89%B9%E5%85%B8/19.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E7%89%B9%E5%85%B8/18.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E7%89%B9%E5%85%B8/15.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E7%89%B9%E5%85%B8/99.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/izPq/724X1020/%E7%89%B9%E5%85%B8%E8%BE%B0%E6%98%9F19%E6%B0%91%E5%9B%BD.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/zBrl/846X1187/%E7%89%B9%E5%85%B8%E8%BE%B0%E6%98%9F25%E6%B0%91%E5%9B%BD.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/lZqK/847X1185/%E7%89%B9%E5%85%B8%E8%BE%B0%E6%98%9F22%E6%B0%91%E5%9B%BD.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/OtiK/847X1187/%E7%89%B9%E5%85%B8%E8%BE%B0%E6%98%9F20%E6%B0%91%E5%9B%BD.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/k65S/849X1190/%E7%89%B9%E5%85%B8%E8%BE%B0%E6%98%9F21%E6%B0%91%E5%9B%BD.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/Z6fv/849X1190/%E7%89%B9%E5%85%B8%E8%BE%B0%E6%98%9F24%E6%B0%91%E5%9B%BD.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/VjaP/849X1191/%E7%89%B9%E5%85%B8%E8%BE%B0%E6%98%9F23%E6%B0%91%E5%9B%BD.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/xQXK/1276X2008/%E7%89%B9%E5%85%B8%E8%BE%B0%E6%98%9F12%E8%87%AA%E5%88%B6.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/zezz/1521X1080/%E7%89%B9%E5%85%B8%E8%BE%B0%E6%98%9F26%E8%87%AA%E5%88%B6.jpg",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/yfV7/1818X2560/%E7%89%B9%E5%85%B8%E8%BE%B0%E6%98%9F31QQ.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/9knt/1818X2560/%E7%89%B9%E5%85%B8%E8%BE%B0%E6%98%9F32QQ.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/2GLC/1920X1438/%E7%89%B9%E5%85%B8%E8%BE%B0%E6%98%9F18%E6%B0%91%E5%9B%BD.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/577l/2896X4076/%E7%89%B9%E5%85%B8%E8%BE%B0%E6%98%9F27QQ.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/WVKP/2896X4076/%E7%89%B9%E5%85%B8%E8%BE%B0%E6%98%9F28QQ.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/kup0/2896X4076/%E7%89%B9%E5%85%B8%E8%BE%B0%E6%98%9F29QQ.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/3YhZ/2896X4076/%E7%89%B9%E5%85%B8%E8%BE%B0%E6%98%9F30QQ.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/OOD2/2896X4076/%E7%89%B9%E5%85%B8%E8%BE%B0%E6%98%9F33QQ.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/pDPO/4796X3344/%E7%89%B9%E5%85%B8%E8%BE%B0%E6%98%9F9%E6%B0%91%E5%9B%BD.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/47wa/4796X6736/%E7%89%B9%E5%85%B8%E8%BE%B0%E6%98%9F5%E6%B0%91%E5%9B%BD.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/hjfB/4796X6764/%E7%89%B9%E5%85%B8%E8%BE%B0%E6%98%9F2%E6%B0%91%E5%9B%BD.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/V2CE/4800X6724/%E7%89%B9%E5%85%B8%E8%BE%B0%E6%98%9F6%E6%B0%91%E5%9B%BD.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/CooP/4800X6724/%E7%89%B9%E5%85%B8%E8%BE%B0%E6%98%9F7%E6%B0%91%E5%9B%BD.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/qjEm/4800X6732/%E7%89%B9%E5%85%B8%E8%BE%B0%E6%98%9F1%E6%B0%91%E5%9B%BD.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/5wY4/4800X6756/%E7%89%B9%E5%85%B8%E8%BE%B0%E6%98%9F4%E6%B0%91%E5%9B%BD.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/mN4s/4800X6760/%E7%89%B9%E5%85%B8%E8%BE%B0%E6%98%9F3%E6%B0%91%E5%9B%BD.png",
+    ],
+    "限定": [
+      "https://img2.tofaka.com/autoupload/gxnv5/20260912/IrXt/1728X2304/%E9%99%90%E5%AE%9Aonly%E9%93%B6%E5%B0%98%E8%BE%B0%E6%98%9F%E7%B4%AB%E6%B0%B4%E6%99%B6.jpeg",
+      "https://img2.tofaka.com/autoupload/gxnv5/20260912/EcQE/1728X2304/%E9%99%90%E5%AE%9Aonly%E9%93%B6%E5%B0%98%E9%BB%91%E7%AA%97.jpeg",
+      "https://img2.tofaka.com/autoupload/gxnv5/20260912/FFKE/1728X2304/%E9%99%90%E5%AE%9Aonly%E9%93%B6%E5%B0%98Q%E7%89%88%E9%BB%91%E7%AA%97.jpeg",
+      "https://img2.tofaka.com/autoupload/gxnv5/20260912/gZBR/1728X2304/%E9%99%90%E5%AE%9Aonly%E9%93%B6%E5%B0%98Q%E7%89%88%E7%99%BD%E7%AA%97.jpeg",
+      "https://img2.tofaka.com/autoupload/gxnv5/20260912/6EYs/1728X2304/%E9%99%90%E5%AE%9Aonly%E9%93%B6%E5%B0%98%E8%BE%B0%E6%98%9F%E6%B0%91%E5%9B%BD.jpeg",
+      "https://img2.tofaka.com/autoupload/gxnv5/20260912/QuvK/1728X2304/%E9%99%90%E5%AE%9Aonly%E9%93%B6%E5%B0%98%E8%BE%B0%E6%98%9F%E7%BB%BF%E4%B8%9D%E7%BB%92.jpeg",
+      "https://img2.tofaka.com/autoupload/gxnv5/20260912/YpZZ/1728X2304/%E9%99%90%E5%AE%9Aonly%E9%93%B6%E5%B0%98%E8%BE%B0%E6%98%9F%E6%B7%B1%E8%93%9D.jpeg",
+      "https://img2.tofaka.com/autoupload/gxnv5/20260912/CJLA/2528X1760/%E9%99%90%E5%AE%9Aonly%E9%93%B6%E5%B0%98%E8%BE%B0%E4%BA%94SP.jpeg",
+      "https://img2.tofaka.com/autoupload/gxnv5/20260912/dtzx/1728X2304/%E9%99%90%E5%AE%9Aonly%E9%93%B6%E5%B0%98%E7%99%BE%E5%90%88%E6%AC%A7%E9%A3%8E.jpeg",
+      "https://img2.tofaka.com/autoupload/gxnv5/20260912/OfsD/1728X2304/%E9%99%90%E5%AE%9Aonly%E9%93%B6%E5%B0%98%E7%99%BD%E7%AA%97.jpeg",
+      "https://img2.tofaka.com/autoupload/gxnv5/20260912/ilX4/1728X2304/%E9%99%90%E5%AE%9Aonly%E6%95%A6%E7%85%8C%E9%93%B6%E5%B0%98%E7%99%BD%E7%AA%97.jpeg",
+      "https://img2.tofaka.com/autoupload/gxnv5/20260912/3fYd/1728X2304/%E9%99%90%E5%AE%9Aonly%E6%95%A6%E7%85%8C%E9%93%B6%E5%B0%98%E9%BB%91%E7%AA%97.jpeg"
+    ],
+    "隐藏卡": [
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%A4%A7%E9%9A%90%E8%97%8F/2CUT1diyDLA.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%A4%A7%E9%9A%90%E8%97%8F/2CUT17.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%A4%A7%E9%9A%90%E8%97%8F/4CUT17.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%A4%A7%E9%9A%90%E8%97%8F/5CUT17.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%A4%A7%E9%9A%90%E8%97%8F/5CUT1diyDLA.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%A4%A7%E9%9A%90%E8%97%8F/3CUT16.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%A4%A7%E9%9A%90%E8%97%8F/5CUT16.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%A4%A7%E9%9A%90%E8%97%8F/4CUT16.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%A4%A7%E9%9A%90%E8%97%8F/CUT17.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%A4%A7%E9%9A%90%E8%97%8F/CUT16.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%A4%A7%E9%9A%90%E8%97%8F/2CUT16.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%A4%A7%E9%9A%90%E8%97%8F/3CUT17.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%A4%A7%E9%9A%90%E8%97%8F/3CUT1diyDLA.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%A4%A7%E9%9A%90%E8%97%8F/4CUT1diyDLA.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%9B%B4%E6%8E%A5%E7%94%A8/%E5%A4%A7%E9%9A%90%E8%97%8F/CUT1diyDLA.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/KOdd/1024X2404/%E9%9A%90%E8%97%8F%E5%8D%A1%E7%BC%94%E7%81%B5%E7%88%B119.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/e562/1024X2404/%E9%9A%90%E8%97%8F%E5%8D%A1%E7%BC%94%E7%81%B5%E7%88%B120.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/cOpB/1024X2404/%E9%9A%90%E8%97%8F%E5%8D%A1%E7%BC%94%E7%81%B5%E7%88%B121.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/UdlK/1024X2404/%E9%9A%90%E8%97%8F%E5%8D%A1%E7%BC%94%E7%81%B5%E7%88%B122.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/Sazl/1024X2404/%E9%9A%90%E8%97%8FDLA%E7%AC%AC%E4%BA%8C%E6%89%B92.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/4JJa/1024X2404/%E9%9A%90%E8%97%8FDLA%E7%AC%AC%E4%BA%8C%E6%89%B93.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/oXC4/1041X2404/%E9%9A%90%E8%97%8F%E5%8D%A1%E7%BC%94%E7%81%B5%E7%88%B116.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/VWcR/1041X2404/%E9%9A%90%E8%97%8F%E5%8D%A1%E7%BC%94%E7%81%B5%E7%88%B117.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/uTeO/1041X2404/%E9%9A%90%E8%97%8F%E5%8D%A1%E7%BC%94%E7%81%B5%E7%88%B118.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/Aj0G/1041X2404/%E9%9A%90%E8%97%8F%E5%8D%A1%E7%BC%94%E7%81%B5%E7%88%B123.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/zRLE/1041X2404/%E9%9A%90%E8%97%8FDLA%E7%AC%AC%E4%BA%8C%E6%89%B91.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/a5GP/1041X2404/%E9%9A%90%E8%97%8FDLA%E7%AC%AC%E4%BA%8C%E6%89%B94.png",
+    ],
+    "中卡位": [
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/Hqa2/1669X3925/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%982.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/LOBG/1696X3864/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%981.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/IqQN/1343X3072/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%983.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/bEcZ/1315X3072/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%9824.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/21Gv/336X798/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%9826.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/daA6/350X811/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%9827.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/ti5P/328X811/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%9825.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/Oo57/1314X3072/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%9820.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/dY7F/1317X3072/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%9822.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/SY2G/1317X3072/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%9823.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/cEpe/1306X3072/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%9821.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/I4qB/1663X3940/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%9812.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/dmSJ/1314X3072/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%9819.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/mOjH/1664X3937/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%9813.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/wBF0/1308X3072/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%9818.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/vGGG/1668X3927/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%9810.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/Zwk5/1668X3927/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%9811.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/xtD2/1671X3920/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%989.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/R1r4/2160X5120/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%9828.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/DKyd/2160X5120/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%9832.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/FfxS/2160X5120/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%9833.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/IeBw/2160X5120/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%9831.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/P6kK/2160X5120/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%9830.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/b9Pu/1041X2404/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%9817.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/y1yE/2160X5120/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%9829.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/PaZj/1041X2404/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%9814.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/S40n/1041X2404/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%9815.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/p8ZB/1041X2404/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%9816.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/mAMN/1041X2404/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%984.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/tBTA/1041X2404/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%987.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/Zqh0/1041X2404/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%988.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/r1VF/1041X2404/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%986.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/S7vl/1041X2404/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%985.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/qadP/1041X2404/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%982.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/pZ8k/1041X2404/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%983.png",
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260912/wSIe/1041X2404/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%981.png",
+
+      "https://imgaly.51shazhu.com/autoupload/gxnv5/20260913/eC96/1335X3072/%E4%B8%AD%E5%8D%A1%E4%BD%8D%3D%E5%8D%A1%E6%B8%B8%E9%AB%984.png",
+
+      "https://tc-new.z.wiki/autoupload/gxnv5/20260913/Ckhe/4800X11264/%E4%B8%AD%E5%8D%A1%E4%BD%8D%E7%AC%AC%E4%BA%8C%E6%89%B939.png/webp",
+
+      "https://tc-new.z.wiki/autoupload/gxnv5/20260913/YDKq/4800X11288/%E4%B8%AD%E5%8D%A1%E4%BD%8D%E7%AC%AC%E4%BA%8C%E6%89%B941.png/webp",
+
+      "https://tc-new.z.wiki/autoupload/gxnv5/20260913/XTMd/4800X11332/%E4%B8%AD%E5%8D%A1%E4%BD%8D%E7%AC%AC%E4%BA%8C%E6%89%B937.png/webp",
+
+      "https://tc-new.z.wiki/autoupload/gxnv5/20260913/EoaN/4800X11392/%E4%B8%AD%E5%8D%A1%E4%BD%8D%E7%AC%AC%E4%BA%8C%E6%89%B940.png/webp",
+
+      "https://tc-new.z.wiki/autoupload/gxnv5/20260913/feGh/4800X11684/%E4%B8%AD%E5%8D%A1%E4%BD%8D%E7%AC%AC%E4%BA%8C%E6%89%B938.png/webp",
+    ]
+  },
+  "weights": {
+    "限定": 1,
+    "特典": 15,
+    "隐藏卡": 5,
+    "高卡位": 20,
+    "中卡位": 25,
+    "低卡位": 34
+  },
+  "back_types": {
+    "限定": "special",
+    "特典": "special",
+    "隐藏卡": "normal",
+    "高卡位": "normal",
+    "中卡位": "normal",
+    "低卡位": "normal"
+  },
+  "fate_pool": [
+    {
+      "title": "冰公主",
+      "name": "韩冰晶",
+      "place": "冰晶宫",
+      "message": "冰消融了，才会有春啊。"
+    },
+    {
+      "title": "灵犀阁司仪",
+      "name": "颜爵",
+      "place": "灵犀阁",
+      "message": "生命不会因寒冷而绝迹，冰雪会让它们沉睡后获得新生。"
+    },
+    {
+      "title": "水王子",
+      "name": "水清漓",
+      "place": "水玲珑宫",
+      "message": "流水本就无常，变化又有什么奇怪。"
+    },
+    {
+      "title": "灵公主",
+      "name": "花翎",
+      "place": "花海潮花圣殿",
+      "message": "生命和灵魂都是宝贵的，他们不分高低贵贱。"
+    },
+    {
+      "title": "王族公主",
+      "name": "罗丽",
+      "place": "花蕾城堡",
+      "message": "谎话一旦开始了，就要用一个接着一个的谎话来圆。"
+    },
+    {
+      "title": "叶罗丽战士",
+      "name": "陈思思",
+      "place": "人类世界",
+      "message": "这个世界不也是你的家吗？救它不也是你的责任吗？"
+    },
+    {
+      "title": "光仙子",
+      "name": "白光莹",
+      "place": "叶罗丽仙境",
+      "message": "就算新事物诞生，历史也不会消亡。"
+    },
+    {
+      "title": "雷电尊者",
+      "name": "庞尊",
+      "place": "雷霆轩",
+      "message": "若你离开，我送你，若你归来，我亦在原地等你。"
+    },
+    {
+      "title": "时间之神",
+      "name": "时希",
+      "place": "四时钟",
+      "message": "时间不是留给过去的，而是留给未来的。"
+    },
+    {
+      "title": "情公主",
+      "name": "艾珍",
+      "place": "情语塔",
+      "message": "人心，最是多变了。"
+    },
+    {
+      "title": "毒娘娘",
+      "name": "毒夕绯",
+      "place": "汐毒府",
+      "message": "不要相信你的记忆，要相信你的感受。"
+    },
+    {
+      "title": "乐公主",
+      "name": "乐音",
+      "place": "音阙小筑",
+      "message": "离堂思琴瑟，别路绕山川。"
+    },
+    {
+      "title": "海公主",
+      "name": "海颜",
+      "place": "珑贝宫",
+      "message": "万物皆可共鸣，只有你们人类局限在自己语言里。"
+    },
+    {
+      "title": "黑香菱",
+      "name": "黑香菱",
+      "place": "人类世界",
+      "message": "这些闪闪亮亮的财富，是人类欲望的源泉。"
+    },
+    {
+      "title": "梦公主",
+      "name": "孟艺",
+      "place": "梦夜城",
+      "message": "梦不仅仅是梦，而是最真实折射。"
+    },
+    {
+      "title": "仙境战神",
+      "name": "金离瞳",
+      "place": "刀锋峡谷",
+      "message": "我曾失去一切，所以更懂守护的意义。"
+    },
+    {
+      "title": "火领主",
+      "name": "火燎耶",
+      "place": "火虹沙漠",
+      "message": "自由，比火焰更灼热。"
+    },
+    {
+      "title": "尘仙子",
+      "name": "银尘",
+      "place": "月上银丝",
+      "message": "浮尘轻扰，三千光景。"
+    },
+    {
+      "title": "御王",
+      "name": "黎灰",
+      "place": "暗宇城",
+      "message": "暗物质，吞噬一切光。"
+    },
+    {
+      "title": "风公子",
+      "name": "八风",
+      "place": "听风亭",
+      "message": "听风，便是听心。"
+    },
+    {
+      "title": "薇夫人",
+      "name": "薇楚箬",
+      "place": "薇花府",
+      "message": "万菌之母，侵蚀万物。"
+    },
+    {
+      "title": "魔术师",
+      "name": "星尘",
+      "place": "浮云楼",
+      "message": "告诉我，命运有没有对你发出警告。"
+    },
+    {
+      "title": "",
+      "name": "武神凌",
+      "place": "禁忌之地",
+      "message": "我的矛再向前一厘，就可以刺穿你的咽喉！"
+    },
+    {
+      "title": "仙境女王",
+      "name": "曼多拉",
+      "place": "严华镜宫",
+      "message": "既然你不是太阳，就不要夺走他的光。"
+    },
+    {
+      "title": "叶罗丽战士",
+      "name": "齐娜",
+      "place": "人类世界",
+      "message": "如果命运如此不公平，我们就背叛它，打倒它吧！"
+    },
+    {
+      "title": "叶罗丽战士",
+      "name": "封银沙",
+      "place": "人类世界",
+      "message": "我却觉得你是月亮的孩子，你更特别。"
+    },
+    {
+      "title": "叶罗丽仙子",
+      "name": "孔雀",
+      "place": "宝石巢",
+      "message": "镜子，照出最美的我。"
+    },
+    {
+      "title": "叶罗丽仙子",
+      "name": "菲灵",
+      "place": "人类世界",
+      "message": "当你身处黑暗的时候，就想想这片星空。"
+    },
+    {
+      "title": "生息灵彩",
+      "name": "灵帝",
+      "place": "彩虹桥",
+      "message": "我也曾面临过这样的选择…… 而我选了，苍生。"
+    },
+    {
+      "title": "冰雪主宰",
+      "name": "冰帝",
+      "place": "冰晶宫",
+      "message": "我乃冰雪的主宰，我命令你再见之时，醒来。"
+    },
+    {
+      "title": "万灵水帝",
+      "name": "水清漓",
+      "place": "水玲珑宫",
+      "message": "以潮汐为刃，劈开迷雾，以帝王之心，载千年守护。"
+    },
+    {
+      "title": "万灵神女",
+      "name": "缔默",
+      "place": "泠默宫",
+      "message": "我不松开你的手，你也不要松开我的手。"
+    },
+    {
+      "title": "引渡魂灵",
+      "name": "渡公主",
+      "place": "孤帆桥",
+      "message": "提灯摆渡，聆听悲鸣。"
+    },
+    {
+      "title": "艺术之灵",
+      "name": "颜狐",
+      "place": "青丘",
+      "message": "以智谋守护，以真心立世。"
+    },
+    {
+      "title": "秘术师",
+      "name": "秘娜",
+      "place": "暗影塔罗殿",
+      "message": "命运的牌面，由我翻覆。"
+    },
+    {
+      "title": "王族帝姬",
+      "name": "丽公主",
+      "place": "万灵界",
+      "message": "王族的荣耀，是守护而非统治。"
+    },
+    {
+      "title": "",
+      "name": "情珍仙子",
+      "place": "湖底秘境",
+      "message": "情之所起，一往而深。"
+    },
+    {
+      "title": "船王",
+      "name": "杜帆",
+      "place": "渡灵界",
+      "message": "放弃新生，是我对你的承诺。"
+    },
+    {
+      "title": "植物仙子",
+      "name": "青梧",
+      "place": "萤灵之森",
+      "message": "草木有灵，万物共生。"
+    },
+    {
+      "title": "炁仙子",
+      "name": "炁流裳",
+      "place": "幽云炁域",
+      "message": "炁，无所不在。"
+    },
+    {
+      "title": "树精",
+      "name": "小野叶",
+      "place": "仙子村",
+      "message": "树洞虽小，能容万物！"
+    },
+    {
+      "title": "",
+      "name": "傅冉",
+      "place": "千窟穴",
+      "message": "辐射之下，万物凋零。"
+    },
+    {
+      "title": "",
+      "name": "傅裘",
+      "place": "千窟穴",
+      "message": "姐姐，我会保护你。"
+    },
+    {
+      "title": "十阶之首",
+      "name": "世王",
+      "place": "禁忌之地",
+      "message": "进化，是世界唯一的真理。"
+    },
+    {
+      "title": "叶罗丽战士",
+      "name": "舒言",
+      "place": "人类世界",
+      "message": "时间，是最公平的见证者。"
+    },
+    {
+      "title": "叶罗丽战士",
+      "name": "建鹏",
+      "place": "人类世界",
+      "message": "植物之力，源于热爱。"
+    },
+    {
+      "title": "叶罗丽战士",
+      "name": "莫纱",
+      "place": "人类世界",
+      "message": "地震之力，守护所爱。"
+    },
+    {
+      "title": "叶罗丽战士",
+      "name": "文茜",
+      "place": "人类世界",
+      "message": "黑暗力量，为我所用。"
+    },
+    {
+      "title": "叶罗丽仙子",
+      "name": "亮彩",
+      "place": "人类世界",
+      "message": "哪里有我，哪里就有光。"
+    },
+    {
+      "title": "叶罗丽仙子",
+      "name": "茉莉",
+      "place": "甜甜屋",
+      "message": "甜品，能治愈一切。"
+    },
+    {
+      "title": "石之国王",
+      "name": "荒石",
+      "place": "石洞穴",
+      "message": "原石之力，坚不可摧。"
+    },
+    {
+      "title": "地震",
+      "name": "地震",
+      "place": "禁忌之地",
+      "message": "崩裂，是我唯一的选择。"
+    }
+  ],
+  "card_backs": {
+    "special": "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E7%89%B9%E5%85%B8%E5%8D%A1%E8%83%8C.jpg",
+    "normal": "https://imgaly.51shazhu.com/autoupload/gxnv5/20260911/folder-mtwyxr10-0jjfkruw/%E3%80%90%E8%A3%81%E5%88%86%E3%80%91%E5%8F%B6%E7%BD%97%E4%B8%BD%E5%8D%A1%E7%89%8C%E8%87%AA%E6%8A%BD/%E5%8D%A1%E8%83%8C.jpg"
+  },
+  "fallback_img": "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27200%27 height=%27375%27 viewBox=%270 0 200 375%27%3E%3Crect fill=%27%23e8d0f0%27 width=%27200%27 height=%27375%27/%3E%3Ctext x=%27100%27 y=%27190%27 text-anchor=%27middle%27 fill=%27%239c27b0%27 font-size=%2716%27 font-family=%27sans-serif%27%3E%E2%9C%A8 %E5%8F%B6%E7%BD%97%E4%B8%BD%3C/text%3E%3C/svg%3E"
+};
+// ===== 配置区 END =====
+
+function initConfig(callback) {
+  CARDS = CONFIG.cards;
+  BACK_SPECIAL = CONFIG.card_backs.special;
+  BACK_NORMAL = CONFIG.card_backs.normal;
+  FALLBACK_IMG = CONFIG.fallback_img || BACK_NORMAL;
+  GROUPS = [];
+  for (var name in CONFIG.weights) {
+    GROUPS.push({ name: name, weight: CONFIG.weights[name], backType: CONFIG.back_types[name] });
+  }
+  if (callback) callback(CONFIG.fate_pool);
+}
+
+function getTodayStr() {
+  var d = new Date();
+  var mm = d.getMonth()+1; var dd = d.getDate();
+  return d.getFullYear() + "-" + (mm<10?"0":"") + mm + "-" + (dd<10?"0":"") + dd;
+}
+
+function initCountData() {
+  var today = getTodayStr();
+  var s = localStorage.getItem(DRAW_COUNT_KEY);
+  if (s) { try { var d = JSON.parse(s); if (d.date === today) return d; } catch(e) {} }
+  return { date:today, counts:{"限定":0,"特典":0,"隐藏卡":0,"高卡位":0,"中卡位":0,"低卡位":0} };
+}
+
+function saveCountData(d) { localStorage.setItem(DRAW_COUNT_KEY, JSON.stringify(d)); }
+
+function updateCountView() {
+  var d = initCountData();
+  document.getElementById("countLimit").textContent = d.counts["限定"];
+  document.getElementById("countSpecial").textContent = d.counts["特典"];
+  document.getElementById("countHide").textContent = d.counts["隐藏卡"];
+  document.getElementById("countHigh").textContent = d.counts["高卡位"];
+  document.getElementById("countMid").textContent = d.counts["中卡位"];
+  document.getElementById("countLow").textContent = d.counts["低卡位"];
+}
+
+function getDailyFateCard(fatePool) {
+  var today = getTodayStr();
+  var s = localStorage.getItem(DAILY_FATE_KEY);
+  if (s) { try { var c = JSON.parse(s); if (c.date === today) return c.cardObj; } catch(e) {} }
+  var card = fatePool[Math.floor(Math.random() * fatePool.length)];
+  localStorage.setItem(DAILY_FATE_KEY, JSON.stringify({date:today, cardObj:card}));
+  return card;
+}
+
+function renderFateCard(card) {
+  var fb = document.getElementById("fallbackMsg");
+  var pt = document.getElementById("placeText");
+  var id = document.getElementById("idText");
+  var mt = document.getElementById("msgText");
+  if (!card || !card.name) {
+    fb.style.display = "block";
+    pt.style.display = "none"; id.style.display = "none"; mt.style.display = "none";
+    return;
+  }
+  fb.style.display = "none";
+  pt.style.display = ""; id.style.display = ""; mt.style.display = "";
+  pt.innerText = "今日" + card.place + "值守者";
+  id.innerText = (card.title && card.title.length > 0) ? (card.title + " \u2014\u2014 " + card.name) : card.name;
+  mt.innerText = "\u300c" + card.message + "\u300d";
+}
+
+function handleImgError(img) {
+  img.onerror = null;
+  img.src = FALLBACK_IMG;
+}
+
+function getCardBack(backType) {
+  return backType === "special" ? BACK_SPECIAL : BACK_NORMAL;
+}
+
+function randomGroup() {
+  var total = 0;
+  for (var i = 0; i < GROUPS.length; i++) total += GROUPS[i].weight;
+  var r = Math.random() * total;
+  for (var j = 0; j < GROUPS.length; j++) {
+    r -= GROUPS[j].weight;
+    if (r <= 0) return GROUPS[j];
+  }
+  return GROUPS[GROUPS.length - 1];
+}
+
+function buildSingleCard(card) {
+  var backSrc = getCardBack(card.backType);
+  var frontSrc = card.img || FALLBACK_IMG;
+  return '<div class="single-card-wrap ' + card.backType + '"><div class="card-inner" id="flipCard">'
+    + '<div class="card-face card-back"><img src="' + backSrc + '" onerror="handleImgError(this)" alt="\u5361\u80cc"></div>'
+    + '<div class="card-face card-front"><img src="' + frontSrc + '" onerror="handleImgError(this)" alt="\u5361\u9762"></div>'
+    + '</div></div>';
+}
+
+function renderResult(drawnCards) {
+  var stats = {"限定":0,"特典":0,"隐藏卡":0,"高卡位":0,"中卡位":0,"低卡位":0};
+  var rarityClass = {"限定":"rarity-limit","特典":"rarity-special","隐藏卡":"rarity-hide","高卡位":"rarity-high","中卡位":"rarity-mid","低卡位":"rarity-low"};
+  var listHtml = "";
+  for (var i = 0; i < drawnCards.length; i++) {
+    var c = drawnCards[i];
+    stats[c.groupName]++;
+    listHtml += '<div><span class="' + rarityClass[c.groupName] + '">[' + c.groupName + ']</span> \u7b2c' + (c.index+1) + '\u53f7</div>';
+  }
+  document.getElementById("resultStats").innerHTML = '<div class="result-stat"><div class="num">' + stats["限定"] + '</div><div class="label">\u9650\u5b9a</div></div>' + '<div class="result-stat"><div class="num">' + stats["特典"] + '</div><div class="label">\u7279\u5178</div></div>' + '<div class="result-stat"><div class="num">' + stats["隐藏卡"] + '</div><div class="label">\u9690\u85cf</div></div>' + '<div class="result-stat"><div class="num">' + stats["高卡位"] + '</div><div class="label">\u9ad8</div></div>' + '<div class="result-stat"><div class="num">' + stats["中卡位"] + '</div><div class="label">\u4e2d</div></div>' + '<div class="result-stat"><div class="num">' + stats["低卡位"] + '</div><div class="label">\u4f4e</div></div>';
+  document.getElementById("resultList").innerHTML = listHtml;
+  document.getElementById("resultPanel").style.display = "block";
+  var data = initCountData();
+  for (var j = 0; j < drawnCards.length; j++) { data.counts[drawnCards[j].groupName]++; }
+  saveCountData(data);
+  updateCountView();
+}
+
+function showNextCard() {
+  if (seqIndex >= currentDrawnCards.length) {
+    renderResult(currentDrawnCards);
+    cardModal.classList.remove("active");
+    document.getElementById("drawSingle").disabled = false;
+    document.getElementById("drawTen").disabled = false;
+    return;
+  }
+  var card = currentDrawnCards[seqIndex];
+  cardStage.innerHTML = buildSingleCard(card);
+  seqPhase = "back";
+  modalTip.textContent = "\u70b9\u51fb\u7ffb\u5f00";
+}
+
+function handleModalClick() {
+  if (seqPhase === "back") {
+    var el = document.getElementById("flipCard");
+    if (el) el.classList.add("flipped");
+    seqPhase = "flipped";
+    modalTip.textContent = "\u70b9\u51fb\u67e5\u770b\u4e0b\u4e00\u5f20";
+  } else if (seqPhase === "flipped") {
+    seqIndex++;
+    showNextCard();
+  }
+}
+
+cardModal = null;
+function bindModalClick() {
+  if (!cardModal) cardModal = document.getElementById("cardModal");
+  cardModal.addEventListener("click", function(e) {
+    if (e.target === cardModal) return;
+    handleModalClick();
+  });
+}
+
+function drawCard(times) {
+  document.getElementById("drawSingle").disabled = true;
+  document.getElementById("drawTen").disabled = true;
+  currentDrawnCards = [];
+  for (var i = 0; i < times; i++) {
+    var g = randomGroup();
+    var pool = CARDS[g.name];
+    var idx = Math.floor(Math.random() * pool.length);
+    currentDrawnCards.push({ groupName:g.name, backType:g.backType, index:idx, img:pool[idx] });
+  }
+  seqIndex = 0;
+  seqPhase = "idle";
+  cardModal.classList.add("active");
+  showNextCard();
+}
+
+window.addEventListener("load", function() {
+  cardModal = document.getElementById("cardModal");
+  cardStage = document.getElementById("cardStage");
+  modalTip = document.getElementById("modalTip");
+  bindModalClick();
+  initConfig(function(fatePool) {
+    updateCountView();
+    var dailyCard = getDailyFateCard(fatePool);
+    renderFateCard(dailyCard);
+    document.getElementById("drawSingle").addEventListener("click", function(){ drawCard(1); });
+    document.getElementById("drawTen").addEventListener("click", function(){ drawCard(10); });
+  });
+});
+</script></body></html>
